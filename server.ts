@@ -1,5 +1,5 @@
 /**
- * PortfolioPilot AI Full-Stack Server
+ * ProtfoliQ Full-Stack Server
  * SPDX-License-Identifier: Apache-2.0
  */
 import "dotenv/config";
@@ -162,7 +162,7 @@ app.post("/api/analyze/github", async (req, res) => {
   try {
     // 1. Fetch Repository Details
     const repoRes = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
-      headers: { "User-Agent": "PortfolioPilot-AI" },
+      headers: { "User-Agent": "ProtfoliQ" },
     });
 
     if (repoRes.ok) {
@@ -175,7 +175,7 @@ app.post("/api/analyze/github", async (req, res) => {
     if (!useFallback) {
       // 2. Fetch File Structure (contents)
       const contentsRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents`, {
-        headers: { "User-Agent": "PortfolioPilot-AI" },
+        headers: { "User-Agent": "ProtfoliQ" },
       });
 
       if (contentsRes.ok) {
@@ -188,7 +188,7 @@ app.post("/api/analyze/github", async (req, res) => {
       // 3. Fetch README Content
       const readmeRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/readme`, {
         headers: {
-          "User-Agent": "PortfolioPilot-AI",
+          "User-Agent": "ProtfoliQ",
           "Accept": "application/vnd.github.v3.raw",
         },
       });
@@ -381,67 +381,71 @@ app.post("/api/analyze/portfolio", async (req, res) => {
       });
     }
 
-    console.log(`Generating Master Portfolio Report for user ${userId || "guest"}`);
+    console.log(`Generating ProtfoliQ Master Report for user ${userId || "guest"}`);
 
     const sysPrompt = `
-      You are an expert Talent Partner and Senior Technical Coach.
-      Your task is to synthesize the individual Github code audit and Document presentation audit into a master "PortfolioPilot Scorecard" including overall score, industry-readiness percentage, placement-readiness percentage, Strengths, Weaknesses, Missing Sections, and a prioritised Improvement Roadmap (Critical, Recommended, Optional).
-      All responses must be strictly valid JSON matching the schema provided.
+      You are an expert Talent Partner, Career Coach, and Senior Technical Evaluator for ProtfoliQ.
+      Your task is to merge GitHub repository audit signals and slide deck presentation feedback into a polished portfolio readiness report.
+      Return only clean JSON following the requested schema.
     `;
 
     const userPrompt = `
-      Please combine these reviews to generate a unified portfolio audit report:
-      
-      ------- GITHUB CODE REVIEW (SUMMARY) -------
+      Merge these review summaries into a ProtfoliQ portfolio assessment:
+
+      ------- GITHUB CODE REVIEW -------
       - Name: ${githubAnalysis.repoName}
+      - URL: ${repoUrl}
       - Score: ${githubAnalysis.score}
       - README Quality: ${githubAnalysis.readmeQuality}%
-      - Tech Stack: ${githubAnalysis.documentationQuality}%
+      - Documentation Quality: ${githubAnalysis.documentationQuality}%
+      - Architecture Quality: ${githubAnalysis.structureQuality}%
+      - Commit Activity: ${githubAnalysis.commitActivity}%
+      - Deployment Links Present: ${githubAnalysis.deploymentLinks}
       - Suggestions: ${JSON.stringify(githubAnalysis.suggestions)}
-      
-      ------- PRESENTATION REVIEW (SUMMARY) -------
+
+      ------- PRESENTATION REVIEW -------
       - Title: ${presentationAnalysis.docName}
       - Score: ${presentationAnalysis.score}
-      - Tech Stack Detail: ${presentationAnalysis.techStack}%
+      - Problem Statement: ${presentationAnalysis.problemStatement}%
+      - Objective Clarity: ${presentationAnalysis.objective}%
       - Architecture Clarity: ${presentationAnalysis.architecture}%
+      - Tech Stack Strength: ${presentationAnalysis.techStack}%
+      - Future Scope: ${presentationAnalysis.futureScope}%
       - Suggestions: ${JSON.stringify(presentationAnalysis.suggestions)}
 
-      Output a single master scorecard JSON object with:
-      - githubScore: matches or derives from Github evaluation (0-100)
-      - presentationScore: matches or derives from Presentation evaluation (0-100)
-      - documentationScore: average score of README and Setup details (0-100)
-      - overallScore: weighted score combination of the components
-      - industryReadinessScore: percentage matches with real-world enterprise coding practices and designs (0-100)
-      - placementReadinessScore: percentage chances of clearing screening tests and hiring manager queries (0-100)
-      - strengths: array of 3-4 top professional achievements detected
-      - weaknesses: array of 3-4 professional shortcomings or design gaps detected
-      - missingSections: array of critical elements omitted (such as missing deployment endpoints, lacking unit testing, no architectural blueprint in README, etc.)
-      - roadmap: array of custom roadmap items designed to help the student elevate their score rapidly.
-
-      Each roadmap item represents an actionable step and must match this schema:
+      Output a single valid JSON object with these fields:
       {
-        "id": "item_<random string>",
-        "title": "Short title, e.g., 'Enhance README setup details'",
-        "type": "critical" | "recommended" | "optional",
-        "description": "More context on why this item is graded this way and what to design.",
-        "actionItem": "Direct command: e.g., 'Add command scripts for Docker run and local mock SQLite seeding.'",
-        "status": "todo"
-      }
-
-      Your response MUST be strictly valid raw JSON with NO markdown blocks or surrounding ticks. Match this schema exactly:
-      {
-        "githubScore": <number>,
-        "presentationScore": <number>,
+        "portfolioScore": <number>,
+        "codeQualityScore": <number>,
         "documentationScore": <number>,
-        "overallScore": <number>,
-        "industryReadinessScore": <number>,
-        "placementReadinessScore": <number>,
-        "strengths": ["Strengths 1", "Strengths 2", ...],
-        "weaknesses": ["Weaknesses 1", "Weaknesses 2", ...],
-        "missingSections": ["Missing 1", "Missing 2", ...],
-        "roadmap": [
-          { "id": "...", "title": "...", "type": "critical" | "recommended" | "optional", "description": "...", "actionItem": "...", "status": "todo" }
-        ]
+        "architectureScore": <number>,
+        "securityScore": <number>,
+        "productionReadinessScore": <number>,
+        "recruiterView": {
+          "summary": "...",
+          "positiveSignals": ["..."],
+          "negativeSignals": ["..."]
+        },
+        "detectedSkills": ["..."],
+        "missingSkills": ["..."],
+        "projectCompleteness": <number>,
+        "benchmarkComparison": {
+          "averageStudent": <number>,
+          "internshipCandidate": <number>,
+          "industryPortfolio": <number>,
+          "summary": "..."
+        },
+        "improvementRoadmap": [
+          {
+            "id": "item_<random string>",
+            "title": "...",
+            "type": "critical" | "recommended" | "optional",
+            "description": "...",
+            "actionItem": "...",
+            "status": "todo"
+          }
+        ],
+        "roastMode": "..."
       }
     `;
 
@@ -456,7 +460,6 @@ app.post("/api/analyze/portfolio", async (req, res) => {
 
     const masterScores = JSON.parse(response.text?.trim() || "{}");
 
-    // Assemble full report
     const fullReport = {
       id: "report_" + Math.random().toString(36).substr(2, 9),
       userId: userId || "guest",
@@ -467,28 +470,71 @@ app.post("/api/analyze/portfolio", async (req, res) => {
       }),
       repoUrl: repoUrl || "",
       docName: docName || "",
-      
-      // Scores
-      githubScore: masterScores.githubScore || githubAnalysis.score,
-      presentationScore: masterScores.presentationScore || presentationAnalysis.score,
-      documentationScore: masterScores.documentationScore || Math.round((githubAnalysis.readmeQuality + githubAnalysis.documentationQuality) / 2),
-      overallScore: masterScores.overallScore || Math.round((githubAnalysis.score + presentationAnalysis.score) / 2),
-      
-      industryReadinessScore: masterScores.industryReadinessScore || 75,
-      placementReadinessScore: masterScores.placementReadinessScore || 70,
 
-      // Nested Reports
+      githubScore: masterScores.githubScore ?? githubAnalysis.score,
+      presentationScore: masterScores.presentationScore ?? presentationAnalysis.score,
+      documentationScore:
+        masterScores.documentationScore ?? Math.round((githubAnalysis.readmeQuality + githubAnalysis.documentationQuality) / 2),
+      overallScore:
+        masterScores.portfolioScore ?? masterScores.overallScore ?? Math.round((githubAnalysis.score + presentationAnalysis.score) / 2),
+      portfolioScore:
+        masterScores.portfolioScore ?? masterScores.overallScore ?? Math.round((githubAnalysis.score + presentationAnalysis.score) / 2),
+      codeQualityScore: masterScores.codeQualityScore ?? githubAnalysis.score,
+      architectureScore: masterScores.architectureScore ?? presentationAnalysis.architecture,
+      securityScore: masterScores.securityScore ?? 70,
+      productionReadinessScore: masterScores.productionReadinessScore ?? 72,
+      projectCompleteness: masterScores.projectCompleteness ?? 72,
+      industryReadinessScore: masterScores.industryReadinessScore ?? 75,
+      placementReadinessScore: masterScores.placementReadinessScore ?? 70,
+
+      recruiterView: masterScores.recruiterView || {
+        summary:
+          "Recruiters see a project with solid core structure, but more production-ready language, deployment context, and security signals are needed.",
+        positiveSignals: [
+          "Well-structured repo overview",
+          "Clear modular architecture",
+          "Good technical documentation tone"
+        ],
+        negativeSignals: [
+          "Missing automated test evidence",
+          "No CI/CD or deployment pipeline described",
+          "Limited security hardening notes"
+        ],
+      },
+      detectedSkills: masterScores.detectedSkills || ["React", "Express", "TypeScript", "Tailwind CSS"],
+      missingSkills: masterScores.missingSkills || ["Unit testing", "Containerization", "CI/CD", "Security reviews"],
+      benchmarkComparison:
+        masterScores.benchmarkComparison || {
+          averageStudent: 58,
+          internshipCandidate: 74,
+          industryPortfolio: 88,
+          summary:
+            "The audit shows performance above average student submissions, competitive for internships, and trending toward industry-quality portfolios.",
+        },
+      roastMode: masterScores.roastMode ||
+        "Friendly roast: This repo is doing the homework, but it still looks like a classroom project without a real release path.",
+      improvementRoadmap: masterScores.improvementRoadmap || masterScores.roadmap || [],
+
       repoAnalysis: githubAnalysis,
       presentationAnalysis: presentationAnalysis,
-
-      strengths: masterScores.strengths || ["Cohesive Tech Stack choose", "Comprehensive description presentation"],
-      weaknesses: masterScores.weaknesses || ["Lack of tests visual proofs"],
-      missingSections: masterScores.missingSections || ["Missing deployment links"],
-
-      roadmap: masterScores.roadmap || []
+      strengths: masterScores.strengths || [
+        "Strong technical direction",
+        "Clear presentation narrative",
+        "Industry-aligned architecture cues"
+      ],
+      weaknesses: masterScores.weaknesses || [
+        "Limited production readiness details",
+        "No automated testing pipeline",
+        "Insufficient security & deployment notes"
+      ],
+      missingSections: masterScores.missingSections || [
+        "Deployment links",
+        "Unit testing evidence",
+        "Production readiness checklist"
+      ],
+      roadmap: masterScores.improvementRoadmap || masterScores.roadmap || [],
     };
 
-    // Save report in file database if we have a real user
     if (userId && userId !== "guest") {
       const reports = readJSONFile(REPORTS_FILE, []);
       reports.push(fullReport);
@@ -524,7 +570,7 @@ async function startServer() {
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`PortfolioPilot AI Server is alive on port ${PORT}`);
+    console.log(`ProtfoliQ Server is alive on port ${PORT}`);
   });
 }
 

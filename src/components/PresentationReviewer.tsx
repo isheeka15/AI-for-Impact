@@ -169,7 +169,7 @@ export const PresentationReviewer: React.FC<PresentationReviewerProps> = ({
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Presentation Pitch Reviewer</h1>
           <p className="text-sm text-slate-400 mt-2 max-w-lg mx-auto">
-            Upload your project presentation or technical pitch document in PDF format. PortfolioPilot evaluates problem-solving narratives, scopes, visual architecture and technical rationales.
+            Upload your project presentation or technical pitch document in PDF format. ProtfoliQ evaluates problem-solving narratives, scopes, visual architecture and technical rationales.
           </p>
         </div>
 

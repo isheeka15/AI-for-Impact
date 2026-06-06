@@ -1,5 +1,5 @@
 /**
- * Landing Page Component for PortfolioPilot AI
+ * Landing Page Component for ProtfoliQ
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -40,7 +40,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onLogin }) =>
               <Cpu className="w-5 h-5 text-white" />
             </div>
             <span className="font-bold text-lg tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
-              PortfolioPilot <span className="text-blue-500">AI</span>
+              ProtfoliQ
             </span>
           </div>
 
@@ -84,10 +84,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onLogin }) =>
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 text-white leading-tight font-sans"
           >
-            Evaluate and Pilot Your Projects to{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-violet-400 bg-clip-text text-transparent">
-              Industry Grade
-            </span>
+            ProtfoliQ – AI Portfolio Intelligence for Job-Ready Students
           </motion.h1>
 
           {/* Subtext */}
@@ -97,7 +94,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onLogin }) =>
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-slate-400 text-base sm:text-lg mb-8 leading-relaxed font-sans"
           >
-            Review GitHub repositories, scrutinize presentation slides, and generate high-fidelity portfolio dashboards using Gemini intelligence. Bridge the gap between placement requirements and technical proficiency.
+            Analyze GitHub codebases and project presentations together to surface recruiter signals, skill gaps, and production readiness in one polished AI report.
           </motion.p>
 
           {/* CTA Group */}
@@ -126,69 +123,160 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onLogin }) =>
         </div>
 
         {/* Feature Highlights Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20 text-left">
-          
-          {/* Card 1 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14 text-left">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="p-6 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-900 hover:border-blue-500/30 transition-all group"
+            className="p-6 rounded-3xl bg-slate-900 border border-slate-800 hover:border-blue-500/30 transition-all"
           >
-            <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-6 text-blue-400 group-hover:scale-110 transition-transform">
+            <div className="w-12 h-12 rounded-3xl bg-blue-500/10 flex items-center justify-center mb-5 text-blue-400">
               <Github className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-slate-100 mb-3 font-sans">GitHub Repo Audit</h3>
-            <p className="text-slate-400 text-sm leading-relaxed mb-4 font-sans">
-              Reviews README quality, codebase density, folder arrangements, screenshots availability, and links to deploy preview websites. Generates a logical quality metric.
-            </p>
-            <span className="text-blue-500 text-xs font-semibold flex items-center gap-1">
-              Analyze structure & docs <ArrowRight className="w-3.5 h-3.5" />
-            </span>
+            <h3 className="text-lg font-bold text-white mb-3">GitHub Intelligence Engine</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">Audit repository structure, README quality, code hygiene, and production signals with AI-powered GitHub analysis.</p>
           </motion.div>
 
-          {/* Card 2 */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.05 }}
+            className="p-6 rounded-3xl bg-slate-900 border border-slate-800 hover:border-violet-500/30 transition-all"
+          >
+            <div className="w-12 h-12 rounded-3xl bg-violet-500/10 flex items-center justify-center mb-5 text-violet-400">
+              <Briefcase className="w-6 h-6" />
+            </div>
+            <h3 className="text-lg font-bold text-white mb-3">Recruiter View Mode</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">See your portfolio through recruiter eyes with positive/negative hiring signals and concise placement-ready guidance.</p>
+          </motion.div>
+
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="p-6 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-900 hover:border-violet-500/30 transition-all group"
+            className="p-6 rounded-3xl bg-slate-900 border border-slate-800 hover:border-cyan-500/30 transition-all"
           >
-            <div className="w-12 h-12 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center mb-6 text-violet-400 group-hover:scale-110 transition-transform">
-              <FileText className="w-6 h-6" />
+            <div className="w-12 h-12 rounded-3xl bg-cyan-500/10 flex items-center justify-center mb-5 text-cyan-400">
+              <Cpu className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-slate-100 mb-3 font-sans">Presentation Reviewer</h3>
-            <p className="text-slate-400 text-sm leading-relaxed mb-4 font-sans">
-              Accepts slide decks/PDFs. Rates critical categories like Objectives, Problem Statements, Tech Architecture, concluding arguments, and future expansion scope.
-            </p>
-            <span className="text-violet-500 text-xs font-semibold flex items-center gap-1">
-              Refine your presentation deck <ArrowRight className="w-3.5 h-3.5" />
-            </span>
+            <h3 className="text-lg font-bold text-white mb-3">Skill Inference</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">Detect in-demand technical skills in your project and uncover missing abilities recruiters expect.</p>
           </motion.div>
 
-          {/* Card 3 */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="p-6 rounded-3xl bg-slate-900 border border-slate-800 hover:border-emerald-500/30 transition-all"
+          >
+            <div className="w-12 h-12 rounded-3xl bg-emerald-500/10 flex items-center justify-center mb-5 text-emerald-400">
+              <ShieldCheck className="w-6 h-6" />
+            </div>
+            <h3 className="text-lg font-bold text-white mb-3">Production Readiness</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">Assess deployment readiness, security posture, and CI/CD maturity inside your portfolio.</p>
+          </motion.div>
+
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="p-6 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-900 hover:border-cyan-500/30 transition-all group"
+            className="p-6 rounded-3xl bg-slate-900 border border-slate-800 hover:border-slate-500/30 transition-all"
           >
-            <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-6 text-cyan-400 group-hover:scale-110 transition-transform">
+            <div className="w-12 h-12 rounded-3xl bg-slate-500/10 flex items-center justify-center mb-5 text-slate-300">
               <TrendingUp className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-slate-100 mb-3 font-sans">Portfolio Master Score</h3>
-            <p className="text-slate-400 text-sm leading-relaxed mb-4 font-sans">
-              Assembles scores into cohesive metrics with placements & industry standards checks. Charts strengths, weaknesses, gaps, and an actionable roadmap to hit 95+.
-            </p>
-            <span className="text-cyan-500 text-xs font-semibold flex items-center gap-1">
-              View target improvement roadmap <ArrowRight className="w-3.5 h-3.5" />
-            </span>
+            <h3 className="text-lg font-bold text-white mb-3">Portfolio Benchmarking</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">Compare your portfolio against average student, internship, and industry-level benchmarks.</p>
           </motion.div>
 
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="p-6 rounded-3xl bg-slate-900 border border-slate-800 hover:border-amber-500/30 transition-all"
+          >
+            <div className="w-12 h-12 rounded-3xl bg-amber-500/10 flex items-center justify-center mb-5 text-amber-400">
+              <Award className="w-6 h-6" />
+            </div>
+            <h3 className="text-lg font-bold text-white mb-3">Roast Mode</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">Enjoy a playful critique that exposes rough edges and surface quick wins for improvement.</p>
+          </motion.div>
         </div>
+
+        <section className="grid grid-cols-1 xl:grid-cols-5 gap-6 mb-20">
+          <div className="xl:col-span-3 p-8 rounded-[2rem] bg-slate-900 border border-slate-800 shadow-xl">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <p className="text-xs uppercase tracking-widest text-slate-400">Sample Analysis Preview</p>
+                <h3 className="text-2xl font-bold text-white mt-2">Mock ProtfoliQ Audit Snapshot</h3>
+              </div>
+              <span className="text-[11px] uppercase tracking-[0.2em] text-slate-500">Demo</span>
+            </div>
+            <div className="rounded-[2rem] bg-slate-950 border border-slate-800 p-6">
+              <div className="flex items-center justify-between mb-5 gap-4">
+                <div>
+                  <p className="text-xs uppercase text-slate-500 tracking-wide">Portfolio Score</p>
+                  <p className="text-4xl font-black text-blue-400">87</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-xs uppercase text-slate-500 tracking-wide">Recruiter Fit</p>
+                  <p className="text-lg font-bold text-violet-400">Strong</p>
+                </div>
+              </div>
+              <div className="space-y-4">
+                {[
+                  { label: "GitHub Intelligence", value: 84, color: "from-blue-500 to-cyan-500" },
+                  { label: "Skill Inference", value: 78, color: "from-cyan-500 to-emerald-500" },
+                  { label: "Production Readiness", value: 72, color: "from-violet-500 to-fuchsia-500" },
+                ].map((item) => (
+                  <div key={item.label}>
+                    <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
+                      <span>{item.label}</span>
+                      <span>{item.value}%</span>
+                    </div>
+                    <div className="w-full h-2 rounded-full bg-slate-900 overflow-hidden">
+                      <div className={`h-full rounded-full bg-gradient-to-r ${item.color}`} style={{ width: `${item.value}%` }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-6 grid gap-3 text-sm text-slate-400">
+                <div className="rounded-3xl bg-slate-900/80 border border-slate-800 p-4">
+                  <p className="font-semibold text-white">Detected Skills</p>
+                  <p>React, Node.js, TypeScript, Tailwind CSS</p>
+                </div>
+                <div className="rounded-3xl bg-slate-900/80 border border-slate-800 p-4">
+                  <p className="font-semibold text-white">Missing Skills</p>
+                  <p>CI/CD, Docker, Unit Testing</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="xl:col-span-2 p-8 rounded-[2rem] bg-slate-900 border border-slate-800 shadow-xl flex flex-col justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-widest text-slate-400 mb-4">Why ProtfoliQ?</p>
+              <h4 className="text-xl font-bold text-white mb-3">Deliver a portfolio that recruiters trust</h4>
+              <p className="text-slate-400 text-sm leading-relaxed">This preview shows the kind of recruiter-ready breakdown ProtfoliQ provides: clear scoring, skill highlights, and readiness signals that make interviews easier.</p>
+            </div>
+            <div className="mt-6 grid gap-3">
+              <div className="rounded-3xl bg-slate-950/70 border border-slate-800 p-4">
+                <p className="text-xs uppercase text-slate-500 tracking-wide mb-2">Benchmark Summary</p>
+                <p className="text-sm text-slate-300">Above average student work, competitive for internships, closing in on industry-level polish.</p>
+              </div>
+              <div className="rounded-3xl bg-slate-950/70 border border-slate-800 p-4">
+                <p className="text-xs uppercase text-slate-500 tracking-wide mb-2">Roast Mode Insight</p>
+                <p className="text-sm text-slate-300">Nice demo energy, but it still reads like a campus project without a formal release path.</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Informative Stats Banner Segment */}
         <div id="stats-banner" className="py-12 border-t border-b border-slate-900 mt-28">
@@ -245,7 +333,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onLogin }) =>
                   <div>
                     <h4 className="text-white text-sm font-bold font-sans">Hiring Manager Readiness</h4>
                     <p className="text-xs text-slate-400 mt-1 leading-relaxed font-sans">
-                      "Students often fail tech screenings not because of their code, but because of poor repository documentation and unguided project pitch architectures. PortfolioPilot AI provides exact advice to overcome this."
+                      "Students often fail tech screenings not because of their code, but because of poor repository documentation and unguided project pitch architectures. ProtfoliQ provides exact advice to overcome this."
                     </p>
                     <div className="text-slate-500 text-[10px] uppercase font-bold tracking-wider mt-3 font-sans">
                       CS Placement Director
@@ -259,7 +347,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onLogin }) =>
 
         {/* Footer */}
         <footer id="landing-footer" className="mt-32 text-center text-xs text-slate-600 font-sans">
-          &copy; {new Date().getFullYear()} PortfolioPilot AI. Powered securely by Gemini Advanced Models. All rights reserved.
+          &copy; {new Date().getFullYear()} ProtfoliQ. Powered securely by Gemini Advanced Models. All rights reserved.
         </footer>
       </main>
     </div>

@@ -92,8 +92,8 @@ export const ReportView: React.FC<ReportViewProps> = ({ report, onBack }) => {
         
         {/* Printable Scorecard Title Block */}
         <section id="printable-headline" className="mb-10 p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-slate-900 to-slate-950 border border-slate-850 print:bg-none print:border-none print:p-0 print:mb-6">
-          <span className="text-[10px] uppercase font-bold tracking-widest text-blue-400 block print:text-blue-600">PortfolioPilot AI Scorecard</span>
-          <h1 className="text-2xl sm:text-3xl font-black text-white mt-1.5 print:text-black">Portfolio Pilot Audit Summary</h1>
+          <span className="text-[10px] uppercase font-bold tracking-widest text-blue-400 block print:text-blue-600">ProtfoliQ Scorecard</span>
+          <h1 className="text-2xl sm:text-3xl font-black text-white mt-1.5 print:text-black">ProtfoliQ Audit Summary</h1>
           <div className="flex flex-wrap items-center gap-4 mt-2 text-xs text-slate-500">
             <span>Date: {report.date}</span>
             <span className="w-1.5 h-1.5 rounded-full bg-slate-800 print:hidden" />
@@ -405,7 +405,7 @@ export const ReportView: React.FC<ReportViewProps> = ({ report, onBack }) => {
 
         {/* Dynamic print details disclaimer footer (show on printable paper page only) */}
         <footer className="hidden print:block text-center text-[10px] text-slate-400 mt-12 border-t border-slate-300 pt-6">
-          Unified Assessment generated securely by PortfolioPilot AI. Powered by Gemini Advanced Flash.
+          Unified Assessment generated securely by ProtfoliQ. Powered by Gemini Advanced Flash.
         </footer>
       </main>
     </div>

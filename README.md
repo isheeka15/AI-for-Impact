@@ -1,142 +1,111 @@
-# PortfolioPilot AI 🚀
+# ProtfoliQ 🚀
 
-An AI-powered CS student portfolio and pitch reviewer designed to audit GitHub repositories, analyze technical slide decks, and generate structured scorecards. Bridge the gap between engineering project layouts and recruiters placement readiness levels dynamically.
-
----
-
-## Technical Architecture Overview
-
-PortfolioPilot AI utilizes a robust full-stack design:
-- **Frontend**: Single-Page App engineered with React 19, Vite, and styled with high-fidelity Tailwind CSS utilities. Utilizes `motion/react` for fluid transition layouts.
-- **Backend Service**: Express.js server configured with low-latency endpoints that communicate with public APIs and Gemini intelligence.
-- **AI Engine**: Leverages the official Google GenAI SDK (`@google/genai`) and the `gemini-3.5-flash` model for contextual code review, doc-pitch grading, and structured master roadmap syntheses.
-- **Database Storage**: Localized JSON file cache system in `data/reports.json` and `data/users.json` to enable robust multi-session testing with zero credentials configurations.
-- **PDF Generation**: Native browser printing capabilities (`window.print()`) paired with specialized high-precision print margins styled with CSS `@media print` directives.
+ProtfoliQ is an AI-powered portfolio readiness platform for CS students, interns, and early-career engineers. It audits GitHub repositories and project presentations, then produces a recruiter-friendly scorecard with targeted improvement recommendations.
 
 ---
 
-## Environment Variables Configuration
+## What ProtfoliQ Solves
 
-Copy `.env.example` to `.env` and fill out your secrets:
+Many student portfolios have strong code but lack recruiter signals: clean documentation, production readiness, security context, and a compelling presentation narrative. ProtfoliQ analyzes both GitHub and presentation content, then surfaces a complete portfolio report that recruiters and hiring managers can easily evaluate.
+
+---
+
+## Features
+
+- GitHub repository audit with code quality, documentation, architecture, and production readiness scoring.
+- Presentation review for pitch clarity, objectives, architecture, and future scope.
+- Unified ProtfoliQ portfolio score with recruiter view insights, skill inference, and completeness analysis.
+- Benchmark comparisons across average student, internship-level, and industry-level portfolios.
+- Fun GitHub Roast Mode feedback card for immediate gap identification.
+- AI-generated improvement roadmap with actionable, prioritized items.
+- Secure Gemini integration through environment variables.
+
+---
+
+## Architecture Overview
+
+ProtfoliQ uses a modern full-stack setup:
+
+- **Frontend**: React 19 + Vite + Tailwind CSS with interactive dashboard cards and responsive visual layouts.
+- **Backend**: Express.js server managing GitHub analysis, presentation scoring, and portfolio synthesis.
+- **AI Engine**: `@google/genai` with the `gemini-3.5-flash` model for structured JSON evaluation.
+- **Storage**: Local JSON files in `data/reports.json` and `data/users.json` for mock persistence.
+- **Config**: `.env` for sensitive API keys, never committed to source.
+
+---
+
+## Environment Setup
+
+Create a `.env` file in the project root with:
 
 ```env
-# GEMINI_API_KEY: Required for Gemini AI models. Create this at Google AI Studio.
 GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
-
-# APP_URL: Developer/Production target endpoint
-APP_URL="http://localhost:3000"
 ```
 
+> Do not commit your `.env` or your Gemini API key.
+
 ---
 
-## API Endpoints Documentation
+## Running Locally
 
-### 1. Authentication Endpoints
-- **Signup**: `POST /api/auth/signup`
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the application:
+
+```bash
+npm run dev
+```
+
+Open `http://localhost:3000` to use ProtfoliQ.
+
+---
+
+## API Endpoints
+
+### Authentication
+- `POST /api/auth/signup`
   - Body: `{ name, email, password }`
-  - Response: `{ user: { id, name, email, avatarUrl }, message: "Signup successful" }`
-- **Signin**: `POST /api/auth/signin`
+- `POST /api/auth/signin`
   - Body: `{ email, password }`
-  - Response: `{ user: { id, name, email, avatarUrl }, message: "Logged in successfully" }`
 
-### 2. Analysis Endpoints
-- **GitHub Repository Analyzer**: `POST /api/analyze/github`
+### Analysis
+- `POST /api/analyze/github`
   - Body: `{ repoUrl }`
-  - Highlights: Fetches repository directories, content files lists, and README.md data using public GitHub APIs; triggers Gemini-3.5-Flash to produce a structured code quality scorecard.
-  - Returns:
-    ```json
-    {
-      "repoName": "PortfolioPilot-AI",
-      "repoUrl": "https://github.com/.../...",
-      "score": 85,
-      "readmeQuality": 90,
-      "documentationQuality": 80,
-      "structureQuality": 85,
-      "commitActivity": 75,
-      "screenshotsPresent": true,
-      "setupInstructions": true,
-      "deploymentLinks": true,
-      "summary": "Project is structured properly with standard node.js setups.",
-      "suggestions": ["Suggestion lines..."]
-    }
-    ```
-
-- **Document Presentation Pitch Reviewer**: `POST /api/analyze/presentation`
+  - Returns GitHub audit fields like `score`, `readmeQuality`, `documentationQuality`, `structureQuality`, `commitActivity`, `deploymentLinks`, and audit suggestions.
+- `POST /api/analyze/presentation`
   - Body: `{ docName, fileBase64, mimeType }`
-  - Highlights: Accepts file buffers in Base64 encoding. Feeds binary bytes seamlessly into the Gemini Multimodal pipeline to rate critical pitch slides (problem statements, architecture diagrams, rationales, future roadmaps).
-  - Returns:
-    ```json
-    {
-      "docName": "presentation.pdf",
-      "score": 88,
-      "problemStatement": 90,
-      "objective": 85,
-      "architecture": 82,
-      "techStack": 90,
-      "futureScope": 80,
-      "conclusion": 85,
-      "summary": "Detailed slide structure containing precise requirements parameters.",
-      "suggestions": ["Suggestions tips..."]
-    }
-    ```
-
-- **Master Unified Portfolio Synthesizer**: `POST /api/analyze/portfolio`
+  - Returns presentation scores and feedback for problem statement, objective, architecture, roadmap, and delivery quality.
+- `POST /api/analyze/portfolio`
   - Body: `{ userId, repoUrl, docName, githubAnalysis, presentationAnalysis }`
-  - Returns: A consolidated Master Report containing aggregated parameters, Placement Preparedness percentage, Industry Standard compatibility index, strengths, weaknesses list, and a prioritized Roadmap array (Critical, Recommended, Optional).
+  - Returns the full ProtfoliQ report, including recruiter view insights, skills inference, completeness score, benchmark comparison, roast mode, and AI-generated improvements.
 
 ---
 
-## Local Setup & Development Instructions
+## Tech Stack
 
-### Prerequisites
-- Node.js (v18 or higher recommended)
-- NPM, Yarn, or pnpm
-
-### Steps to Run:
-1. **Install Dependencies**:
-   ```bash
-   npm install
-   ```
-2. **Setup Secrets**:
-   Copy the example `.env.example` to `.env` and assign your `GEMINI_API_KEY`.
-3. **Compile and Launch Server**:
-   ```bash
-   npm run dev
-   ```
-   The backend server and frontend hot-reloader will compile and run on **http://localhost:3000**.
+- React 19
+- Vite
+- Tailwind CSS
+- Express.js
+- TypeScript
+- @google/genai
+- dotenv
+- Lucide React icons
 
 ---
 
-## Deployment Instructions
+## Security
 
-### Deployment to Vercel (Front-end Only fallback or Serverless):
-For serverless full-stack deployment on Vercel:
-1. Ensure `vercel.json` is configured in your project root pointing directories towards Express:
-   ```json
-   {
-     "version": 2,
-     "builds": [
-       { "src": "server.ts", "use": "@vercel/node" },
-       { "src": "package.json", "use": "@vercel/static-build", "config": { "distDir": "dist" } }
-     ],
-     "routes": [
-       { "src": "/api/(.*)", "dest": "server.ts" },
-       { "src": "/(.*)", "dest": "$1" }
-     ]
-   }
-   ```
-2. Deploy using Vercel CLI:
-   ```bash
-   vercel --prod
-   ```
+ProtfoliQ keeps API keys secret by reading `GEMINI_API_KEY` from `.env` on the server. The frontend never exposes the key.
 
-### Deployment to Cloud Run (Standard Full-Stack Container, recommended):
-The workspace contains predefined Node setups. Port 3000 will automatically handle external reverse proxies.
-1. Build docker container:
-   ```bash
-   docker build -t gcr.io/my-project/portfolio-pilot .
-   ```
-2. Run container bindings:
-   ```bash
-   docker run -p 3000:3000 -e GEMINI_API_KEY="..." gcr.io/my-project/portfolio-pilot
-   ```
+---
+
+## Notes
+
+- Ensure `GEMINI_API_KEY` is present before running the server.
+- The project uses local JSON files for proof-of-concept persistence.
+- This repo is configured for hackathon-ready demo use with polished dashboard UX and structured AI-driven portfolio recommendations.

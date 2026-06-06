@@ -1,5 +1,5 @@
 /**
- * PortfolioPilot AI Shared Types
+ * ProtfoliQ Shared Types
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -47,6 +47,19 @@ export interface RoadmapItem {
   status: 'todo' | 'completed';
 }
 
+export interface RecruiterView {
+  summary: string;
+  positiveSignals: string[];
+  negativeSignals: string[];
+}
+
+export interface BenchmarkComparison {
+  averageStudent: number;
+  internshipCandidate: number;
+  industryPortfolio: number;
+  summary: string;
+}
+
 export interface PortfolioReport {
   id: string;
   userId: string;
@@ -59,9 +72,22 @@ export interface PortfolioReport {
   presentationScore: number;
   documentationScore: number; // combination of README and structure quality
   overallScore: number;
+  portfolioScore: number;
+  codeQualityScore: number;
+  architectureScore: number;
+  securityScore: number;
+  productionReadinessScore: number;
+  projectCompleteness: number;
   
   industryReadinessScore: number; // 0-100 based on standard matching
   placementReadinessScore: number; // 0-100 based on placements/placement tests
+
+  recruiterView: RecruiterView;
+  detectedSkills: string[];
+  missingSkills: string[];
+  benchmarkComparison: BenchmarkComparison;
+  roastMode: string;
+  improvementRoadmap: RoadmapItem[];
 
   // Detailed Analysis
   repoAnalysis: RepoAnalysis;

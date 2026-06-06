@@ -123,8 +123,54 @@ const AppContent: React.FC = () => {
         presentationScore: analysis.score,
         documentationScore: Math.round(((tempGithub?.readmeQuality || 70) + (tempGithub?.documentationQuality || 70)) / 2),
         overallScore: Math.round(((tempGithub?.score || 72) + analysis.score) / 2),
+        portfolioScore: Math.round(((tempGithub?.score || 72) + analysis.score) / 2),
+        codeQualityScore: tempGithub?.score || 72,
+        architectureScore: analysis.architecture,
+        securityScore: 72,
+        productionReadinessScore: 75,
         industryReadinessScore: 82,
         placementReadinessScore: 78,
+        recruiterView: {
+          summary: "Recruiters appreciate the architecture clarity, but want stronger production readiness and deployment evidence.",
+          positiveSignals: ["Clear repo structure", "Good technical documentation", "Strong presentation goal"],
+          negativeSignals: ["No CI/CD cadence", "Limited security context", "Missing live deployment demo"],
+        },
+        detectedSkills: ["React", "Express", "TypeScript", "Tailwind CSS"],
+        missingSkills: ["Unit testing", "Dockerization", "CI/CD", "Security hardening"],
+        projectCompleteness: 70,
+        benchmarkComparison: {
+          averageStudent: 60,
+          internshipCandidate: 75,
+          industryPortfolio: 88,
+          summary: "This portfolio is above average student work, close to internship-level but needs polish for industry-grade readiness.",
+        },
+        roastMode: "GitHub Roast Mode: Nice sandbox work, but this still reads like a campus assignment rather than a production launch.",
+        improvementRoadmap: [
+          {
+            id: "ritem_1",
+            title: "Add Visual Architecture Schemes in Presentation Deck",
+            type: "critical",
+            description: "A diagram explaining your server layout adds recruiter clarity.",
+            actionItem: "Graph a flowchart detailing React -> Express Express framework linkages.",
+            status: "todo"
+          },
+          {
+            id: "ritem_2",
+            title: "Incorporate setup clone run script commands",
+            type: "recommended",
+            description: "This allows developers to clone and test your codebase immediately.",
+            actionItem: "Add copyable CLI commands for clone and run setups.",
+            status: "todo"
+          },
+          {
+            id: "ritem_3",
+            title: "Provide visual screenshot references in README",
+            type: "optional",
+            description: "Visual summaries increase trust immediately.",
+            actionItem: "Incorporate UI images or video demonstrations links.",
+            status: "todo"
+          }
+        ],
         repoAnalysis: tempGithub || {
           repoName: "CS Project Core",
           repoUrl: "https://github.com/guest/CS-Project",

@@ -1,5 +1,5 @@
 /**
- * Dynamic Dashboard Component for PortfolioPilot AI
+ * Dynamic Dashboard Component for ProtfoliQ
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -39,10 +39,30 @@ export const Dashboard: React.FC<DashboardProps> = ({
   // Find latest report for quick stats
   const latestReport = reports && reports.length > 0 ? reports[0] : null;
 
-  const currentOverall = latestReport ? latestReport.overallScore : 0;
+  const currentOverall = latestReport ? latestReport.portfolioScore : 0;
   const currentGithub = latestReport ? latestReport.githubScore : 0;
   const currentPresentation = latestReport ? latestReport.presentationScore : 0;
   const currentDocumentation = latestReport ? latestReport.documentationScore : 0;
+  const portfolioScore = latestReport ? latestReport.portfolioScore : 0;
+  const architectureScore = latestReport ? latestReport.architectureScore : 0;
+  const securityScore = latestReport ? latestReport.securityScore : 0;
+  const productionReadinessScore = latestReport ? latestReport.productionReadinessScore : 0;
+  const projectCompleteness = latestReport ? latestReport.projectCompleteness : 0;
+  const recruiterView = latestReport?.recruiterView || {
+    summary: "A portfolio signal summary will appear once you run an audit.",
+    positiveSignals: ["Run an audit to unlock recruiter insights"],
+    negativeSignals: ["No recruiter feedback available yet"],
+  };
+  const detectedSkills = latestReport?.detectedSkills || [];
+  const missingSkills = latestReport?.missingSkills || [];
+  const benchmarkComparison = latestReport?.benchmarkComparison || {
+    averageStudent: 0,
+    internshipCandidate: 0,
+    industryPortfolio: 0,
+    summary: "Run an audit to compare your portfolio against standard benchmarks.",
+  };
+  const roastMode = latestReport?.roastMode || "Run a report to generate your GitHub Roast Mode feedback.";
+  const improvementRoadmap = latestReport?.improvementRoadmap || latestReport?.roadmap || [];
 
   return (
     <div className="min-h-screen text-slate-100 bg-slate-950 font-sans">
@@ -59,7 +79,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               <TrendingUp className="w-4 h-4 text-white" />
             </div>
             <span className="font-bold text-base tracking-tight text-white">
-              PortfolioPilot <span className="text-blue-500">AI</span> Dashboard
+              ProtfoliQ Dashboard
             </span>
           </div>
 
@@ -128,7 +148,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
           <div className="relative group p-6 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col justify-between overflow-hidden">
             <div className="absolute top-0 left-0 h-[2px] w-full bg-gradient-to-r from-blue-500 to-violet-500" />
             <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Master Portfolio Score</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">ProtfoliQ Portfolio Score</span>
               <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
                 <Award className="w-4 h-4" />
               </div>
@@ -227,6 +247,162 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 <span>Avg: 65%</span>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* ProtfoliQ Insight Blocks */}
+        <section id="insight-grid" className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-10">
+          <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl shadow-slate-950/20">
+            <h3 className="text-sm font-semibold uppercase tracking-widest text-slate-400 mb-4">Recruiter View Mode</h3>
+            <p className="text-sm text-slate-300 leading-relaxed mb-4">{recruiterView.summary}</p>
+            <div className="grid grid-cols-1 gap-3">
+              <div className="rounded-2xl bg-slate-950/70 p-4 border border-slate-800">
+                <div className="text-[11px] uppercase text-emerald-400 tracking-wide mb-2">Positive Signals</div>
+                <ul className="space-y-2 text-xs text-slate-300">
+                  {recruiterView.positiveSignals.map((signal, index) => (
+                    <li key={index} className="flex items-start gap-2">
+                      <span className="mt-0.5 h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                      <span>{signal}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-2xl bg-slate-950/70 p-4 border border-slate-800">
+                <div className="text-[11px] uppercase text-rose-400 tracking-wide mb-2">Negative Signals</div>
+                <ul className="space-y-2 text-xs text-slate-300">
+                  {recruiterView.negativeSignals.map((signal, index) => (
+                    <li key={index} className="flex items-start gap-2">
+                      <span className="mt-0.5 h-2.5 w-2.5 rounded-full bg-rose-400" />
+                      <span>{signal}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl shadow-slate-950/20">
+            <h3 className="text-sm font-semibold uppercase tracking-widest text-slate-400 mb-4">Skill Inference Engine</h3>
+            <div className="mb-4">
+              <div className="text-[11px] uppercase text-cyan-400 tracking-wide mb-2">Detected Skills</div>
+              <div className="flex flex-wrap gap-2">
+                {detectedSkills.length > 0 ? (
+                  detectedSkills.map((skill) => (
+                    <span key={skill} className="px-3 py-1 rounded-full bg-slate-950/80 text-xs text-emerald-300">{skill}</span>
+                  ))
+                ) : (
+                  <span className="text-xs text-slate-500">Run an audit to identify skills.</span>
+                )}
+              </div>
+            </div>
+            <div>
+              <div className="text-[11px] uppercase text-amber-400 tracking-wide mb-2">Missing Skills</div>
+              <div className="flex flex-wrap gap-2">
+                {missingSkills.length > 0 ? (
+                  missingSkills.map((skill) => (
+                    <span key={skill} className="px-3 py-1 rounded-full bg-slate-950/80 text-xs text-rose-300">{skill}</span>
+                  ))
+                ) : (
+                  <span className="text-xs text-slate-500">The AI will identify skill gaps after your first evaluation.</span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl shadow-slate-950/20">
+            <h3 className="text-sm font-semibold uppercase tracking-widest text-slate-400 mb-4">Production Readiness Checker</h3>
+            <div className="grid grid-cols-2 gap-3 mb-4 text-xs text-slate-300">
+              <div className="rounded-2xl bg-slate-950/70 p-3 border border-slate-800">
+                <span className="block text-[10px] uppercase text-slate-500">Architecture Score</span>
+                <span className="text-sm font-semibold text-white">{architectureScore}%</span>
+              </div>
+              <div className="rounded-2xl bg-slate-950/70 p-3 border border-slate-800">
+                <span className="block text-[10px] uppercase text-slate-500">Security Score</span>
+                <span className="text-sm font-semibold text-white">{securityScore}%</span>
+              </div>
+            </div>
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm font-bold text-white">Readiness Score</span>
+              <span className="text-sm font-black text-violet-400">{productionReadinessScore}%</span>
+            </div>
+            <div className="w-full bg-slate-950 h-2 rounded-full overflow-hidden mb-4">
+              <div className="bg-gradient-to-r from-violet-500 to-fuchsia-500 h-full rounded-full" style={{ width: `${productionReadinessScore}%` }} />
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">Evaluates whether your repository looks like a classroom submission or deployment-ready product, including pipelines, release notes, and security coverage.</p>
+          </div>
+        </section>
+
+        <section id="benchmarking-grid" className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-10">
+          <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl shadow-slate-950/20">
+            <h3 className="text-sm font-semibold uppercase tracking-widest text-slate-400 mb-4">Project Completeness Analyzer</h3>
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm font-bold text-white">Completeness</span>
+              <span className="text-sm font-black text-cyan-300">{projectCompleteness}%</span>
+            </div>
+            <div className="w-full bg-slate-950 h-2 rounded-full overflow-hidden mb-4">
+              <div className="bg-gradient-to-r from-cyan-500 to-blue-500 h-full rounded-full" style={{ width: `${projectCompleteness}%` }} />
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">Measures whether your portfolio has core deliverables, documentation, deployability, and a complete project narrative.</p>
+          </div>
+
+          <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl shadow-slate-950/20">
+            <h3 className="text-sm font-semibold uppercase tracking-widest text-slate-400 mb-4">Portfolio Benchmarking</h3>
+            <div className="space-y-3">
+              {[
+                { label: "Average Student", value: benchmarkComparison.averageStudent, color: "bg-slate-700" },
+                { label: "Internship-Level", value: benchmarkComparison.internshipCandidate, color: "bg-blue-500" },
+                { label: "Industry Portfolio", value: benchmarkComparison.industryPortfolio, color: "bg-violet-500" },
+              ].map((item) => (
+                <div key={item.label} className="space-y-1">
+                  <div className="flex items-center justify-between text-xs text-slate-400">
+                    <span>{item.label}</span>
+                    <span>{item.value}%</span>
+                  </div>
+                  <div className="w-full bg-slate-950 h-2 rounded-full overflow-hidden">
+                    <div className={`${item.color} h-full rounded-full`} style={{ width: `${item.value}%` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-slate-400 mt-4 leading-relaxed">Compare your portfolio across student, internship, and industry readiness bands.</p>
+          </div>
+
+          <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl shadow-slate-950/20">
+            <h3 className="text-sm font-semibold uppercase tracking-widest text-slate-400 mb-4">GitHub Roast Mode</h3>
+            <div className="rounded-2xl bg-slate-950/70 p-4 border border-slate-800 text-sm text-slate-300 leading-relaxed">
+              {roastMode}
+            </div>
+            <p className="text-xs text-slate-400 mt-4 leading-relaxed">A light-hearted critique card to help you spot the rough edges in your repository.</p>
+          </div>
+        </section>
+
+        <section id="roadmap-generator" className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl shadow-slate-950/20 mb-10">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+            <div>
+              <h3 className="text-sm font-semibold uppercase tracking-widest text-slate-400">AI Roadmap Generator</h3>
+              <p className="text-xs text-slate-400 mt-2 max-w-2xl">Actionable steps created by ProtfoliQ to raise your score fast and close recruiter gaps.</p>
+            </div>
+            <span className="text-xs uppercase tracking-widest text-blue-400 font-semibold">{improvementRoadmap.length} Actions</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {improvementRoadmap.slice(0, 6).map((item) => (
+              <div key={item.id} className="p-4 rounded-2xl bg-slate-950 border border-slate-800">
+                <div className="flex items-center justify-between gap-3 mb-3">
+                  <span className="text-xs uppercase font-semibold text-slate-400">{item.type}</span>
+                  <span className={`text-[10px] rounded-full px-2 py-1 ${
+                    item.type === "critical" ? "bg-red-500/10 text-red-300" : item.type === "recommended" ? "bg-blue-500/10 text-blue-300" : "bg-emerald-500/10 text-emerald-300"
+                  }`}>{item.status}</span>
+                </div>
+                <h4 className="text-sm font-bold text-white mb-2">{item.title}</h4>
+                <p className="text-xs text-slate-400 leading-relaxed mb-3">{item.description}</p>
+                <div className="text-[11px] text-slate-300 bg-slate-900 border border-slate-800 rounded-2xl px-3 py-2">{item.actionItem}</div>
+              </div>
+            ))}
+            {improvementRoadmap.length === 0 && (
+              <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-xs text-slate-500">
+                Run an audit and ProtfoliQ will generate a fully customized improvement roadmap here.
+              </div>
+            )}
           </div>
         </section>
 
